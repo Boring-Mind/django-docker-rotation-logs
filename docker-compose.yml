@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  django-logs:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./django.log:/app/django.log
+      - ./gunicorn_access.log:/app/gunicorn_access.log
+      - ./gunicorn_error.log:/app/gunicorn_error.log
+      - ./infrastructure/gunicorn_conf.py:/app/gunicorn_conf.py
+    environment:
+      DEBUG: 'true'
+    restart: unless-stopped
